@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Technical Subjects & Languages — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/language.css" />
+<link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gate.html">GATE Quiz</a>
+      <a href="language.html" class="active">Quizzes</a>
+      <a href="aptitude.html">Aptitude</a>
+      <a href="profile.html">Profile</a>
+      <a href="upgrade.html">Upgrade</a>
+    </div>
+
+    <div>
+      <a href="dashboard.html" style="font-size: 14px; font-weight: 600; color: var(--purple-deep);">← Back to Dashboard</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="page-header">
+    <span class="eyebrow">⚡ AI Curated Engineering Subjects</span>
+    <h1>Select Language or Subject</h1>
+    <p>Choose your technical domain, set your target difficulty, and test your engineering depth with instant AI feedback.</p>
+  </div>
+
+  <!-- Branch Switcher and Search -->
+  <div class="filter-bar">
+    <div class="branch-selector">
+      <label for="branchFilter">Branch:</label>
+      <select id="branchFilter">
+        <option value="Computer Science Engineering">Computer Science Engineering</option>
+        <option value="Information Technology">Information Technology</option>
+        <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+        <option value="Data Science">Data Science</option>
+        <option value="Chemical Engineering">Chemical Engineering</option>
+        <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
+        <option value="Electrical Engineering">Electrical Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+      </select>
+    </div>
+
+    <input type="text" id="subjectSearch" class="search-input" placeholder="Search language or subject..." />
+  </div>
+
+  <!-- AI Recommendation Banner -->
+  <div class="ai-rec-banner">
+    <div class="ai-rec-badge">🧠</div>
+    <div class="ai-rec-text">
+      <h4>AI Curriculum Recommendation</h4>
+      <p id="branchAiGuidance">Loading personalized guidance for your engineering branch...</p>
+    </div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div id="subjectGrid" class="subject-grid">
+    <!-- Dynamically loaded cards -->
+  </div>
+</main>
+
+<script type="module" src="js/language.js"></script>
+</body>
+</html>

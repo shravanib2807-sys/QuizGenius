@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/global.css" />
+<style>
+  :root {
+    --ink: #181A2A;
+    --ink-soft: #585B72;
+    --white: #FFFFFF;
+    --bg: #F8F6F0;
+    --surface: #FFFFFF;
+    --surface-2: #EFEAFB;
+    --blue: #4A5CF5;
+    --purple: #8B5CF6;
+    --purple-deep: #6C3FE0;
+    --line: #E7E3D6;
+    --teal: #17B0A0;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --shadow-soft: 0 20px 45px -25px rgba(74,44,196,0.35);
+    --shadow-tight: 0 10px 25px -15px rgba(24,26,42,0.25);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  h1, h2, h3, .brand { font-family: 'Poppins', sans-serif; margin: 0; }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+
+  header {
+    background: rgba(248, 246, 240, 0.9);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .brand {
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand .mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+  }
+
+  .auth-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+  .auth-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 44px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: var(--shadow-tight);
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .auth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--purple-deep);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .auth-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .auth-card p.desc {
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    margin-bottom: 28px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+  .form-control {
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--line);
+    font-family: inherit;
+    font-size: 14.5px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+  }
+  .form-control:focus {
+    border-color: var(--purple);
+  }
+
+  .status-notice {
+    background: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: none;
+  }
+
+  .error-message {
+    background: #fee2e2;
+    border: 1px solid #f87171;
+    color: #b91c1c;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    margin-bottom: 20px;
+    display: none;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    border-radius: 999px;
+    background: linear-gradient(100deg, var(--blue), var(--purple-deep));
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    margin-top: 10px;
+    box-shadow: var(--shadow-tight);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .demo-fill-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 999px;
+    border: 1px dashed var(--purple);
+    background: var(--surface-2);
+    color: var(--purple-deep);
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 12px;
+    transition: all 0.2s;
+  }
+  .demo-fill-btn:hover {
+    background: #e9deff;
+  }
+
+  .auth-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .auth-footer a {
+    color: var(--purple-deep);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+    <a href="register.html" style="font-size: 14px; font-weight: 600; color: var(--ink-soft);">New student? Register</a>
+  </nav>
+</header>
+
+<main class="auth-main">
+  <div class="auth-card">
+    <div class="auth-badge">Student Login</div>
+    <h1>Welcome Back</h1>
+    <p class="desc">Sign in to resume quizzes, track progress, and review analytics.</p>
+
+    <div id="statusNotice" class="status-notice"></div>
+    <div id="errorMessage" class="error-message"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="form-control" placeholder="student@engineering.edu" required autocomplete="email" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password" />
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Sign In to Dashboard</button>
+      <button type="button" id="demoFillBtn" class="demo-fill-btn">⚡ Fill Demo Credentials (Shravani / CSE)</button>
+    </form>
+
+    <div class="auth-footer">
+      Don't have an account? <a href="register.html">Register here</a>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/login.js"></script>
+</body>
+</html>

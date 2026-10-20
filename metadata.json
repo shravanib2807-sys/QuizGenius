@@ -1,0 +1,6 @@
+{
+  "name": "QuizGenius",
+  "description": "AI-powered interactive quiz and aptitude platform for engineering students with branch-based recommendations, technical quizzes, and AI performance analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

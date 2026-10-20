@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiz Result — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/result.css" />
+<link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <a href="dashboard.html" style="font-size: 14.5px; font-weight: 600; color: var(--ink-soft);">Dashboard</a>
+      <a href="language.html" style="font-size: 14.5px; font-weight: 600; color: var(--purple-deep);">Quizzes</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap result-container">
+  <!-- Top Score Summary Card -->
+  <div class="score-card">
+    <span class="score-badge">Test Completed</span>
+    <h1>Performance Scorecard</h1>
+    <p class="sub">Here is your comprehensive evaluation and AI breakdown.</p>
+
+    <!-- Circular Progress Indicator -->
+    <div class="meter-wrapper">
+      <div id="meterCircle" class="meter-circle" style="--pct: 80%;">
+        <div class="meter-inner">
+          <span id="resPercentage" class="meter-pct">80%</span>
+          <span class="meter-label">Accuracy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metric Columns -->
+    <div class="metrics-row">
+      <div class="metric-col">
+        <span class="m-label">Student:</span>
+        <span id="resStudent" class="m-val">Student</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Subject:</span>
+        <span id="resSubject" class="m-val">General</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Total Questions:</span>
+        <span id="resTotal" class="m-val">10</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Correct Answers:</span>
+        <span id="resCorrect" class="m-val correct-val">0</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Wrong Answers:</span>
+        <span id="resWrong" class="m-val wrong-val">0</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Unanswered:</span>
+        <span id="resUnanswered" class="m-val" style="color: #f59e0b;">0</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Score:</span>
+        <span id="resScore" class="m-val">0</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Percentage:</span>
+        <span id="resPercentageMetric" class="m-val">0%</span>
+      </div>
+
+      <div class="metric-col">
+        <span class="m-label">Time Taken:</span>
+        <span id="resTime" class="m-val">00:00</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="result-actions">
+      <button id="scrollToAnalysisBtn" class="btn-res btn-res-primary">View AI Analysis ↓</button>
+      <button id="tryAgainBtn" class="btn-res btn-res-secondary">↺ Try Again</button>
+      <a href="dashboard.html" class="btn-res btn-res-secondary">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <!-- AI Performance Analysis -->
+  <div id="analysisCard" class="analysis-card">
+    <div class="analysis-header">
+      <div class="ai-icon-badge">🧠</div>
+      <div>
+        <h2>AI Performance Analysis</h2>
+        <p style="color: var(--ink-soft); font-size: 14px; margin: 0;">Automated objective analysis of your test responses</p>
+      </div>
+    </div>
+
+    <div class="analysis-grid">
+      <!-- Strong Areas -->
+      <div class="analysis-box strong">
+        <h4>✓ Strong Areas:</h4>
+        <ul id="strongAreasList">
+          <li>Analyzing...</li>
+        </ul>
+      </div>
+
+      <!-- Needs Practice -->
+      <div class="analysis-box needs-practice">
+        <h4>⚠ Needs Practice:</h4>
+        <ul id="needsPracticeList">
+          <li>Analyzing...</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Actionable Recommendation -->
+    <div class="recommendation-box">
+      <div class="rec-title">⚡ Recommendation:</div>
+      <p id="recommendationText" class="rec-text">Generating study recommendation based on your score...</p>
+    </div>
+  </div>
+
+  <!-- Detailed Question Review -->
+  <div class="review-card">
+    <div class="review-title">Detailed Question Review</div>
+    <div id="reviewList" class="review-list">
+      <!-- Injected by result.js -->
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/result.js"></script>
+</body>
+</html>

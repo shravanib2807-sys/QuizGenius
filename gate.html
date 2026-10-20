@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GATE Exam Quiz — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/aptitude.css" />
+<link rel="stylesheet" href="css/quiz.css" />
+<link rel="stylesheet" href="css/global.css" />
+<style>
+  .gate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+  }
+  @media (max-width: 960px) {
+    .gate-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .gate-grid { grid-template-columns: 1fr; }
+  }
+
+  .gate-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-tight);
+    cursor: pointer;
+  }
+  .gate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--purple-deep);
+  }
+  .gate-card.selected {
+    border: 2px solid var(--purple-deep);
+    background: #faf8ff;
+  }
+  .gate-card-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .gate-card h3 {
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .gate-card p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 0 0 16px;
+  }
+  .gate-subtopics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .gate-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--purple-deep);
+    background: var(--surface-2);
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .gate-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+  }
+
+  /* Configuration bar */
+  .config-bar {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    margin: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    box-shadow: var(--shadow-tight);
+  }
+  .config-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .config-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .config-select {
+    padding: 9px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+  }
+  .btn-gate-start {
+    background: linear-gradient(135deg, var(--purple-deep), var(--blue));
+    color: var(--white);
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 20px -8px rgba(108, 63, 224, 0.4);
+    transition: filter 0.15s ease;
+  }
+  .btn-gate-start:hover {
+    filter: brightness(1.08);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div id="gateNavLinks" class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gate.html" class="active">GATE Quiz</a>
+      <a href="language.html">Quizzes</a>
+      <a href="aptitude.html">Aptitude</a>
+      <a href="profile.html">Profile</a>
+      <a href="upgrade.html">Upgrade</a>
+    </div>
+
+    <div>
+      <a id="gateBackLink" href="dashboard.html" style="font-size: 14px; font-weight: 600; color: var(--purple-deep);">← Back to Dashboard</a>
+      <button id="exitQuizBtn" class="exit-btn" style="display: none;" type="button">✕ Exit Quiz</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <!-- 1. SUBJECT SELECTION VIEW -->
+  <div id="gateSelectionView">
+    <div class="apt-intro">
+      <span class="eyebrow">🎓 National Exam Assessment</span>
+      <h1 id="gateHeading">GATE Exam Quizzes</h1>
+      <p id="gateSubtitle">Master Graduate Aptitude Test in Engineering concepts with AI-curated MCQs, rigorous step-by-step proofs, and unique question deduplication.</p>
+    </div>
+
+    <!-- Error/Status Notice -->
+    <div id="selectionStatusMsg" style="display: none; padding: 12px 18px; margin: 16px 0; border-radius: var(--radius-sm); background: #fee2e2; border: 1px solid #fca5a5; color: #dc2626; font-size: 14px; font-weight: 600;"></div>
+
+    <!-- Quick Config Bar -->
+    <div class="config-bar">
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div class="config-group">
+          <label for="gateBranchSelect">Branch:</label>
+          <select id="gateBranchSelect" class="config-select">
+            <option value="Computer Science Engineering">Computer Science &amp; IT (CSE)</option>
+            <option value="Mechanical Engineering">Mechanical Engineering (ME)</option>
+            <option value="Civil Engineering">Civil Engineering (CE)</option>
+            <option value="Electrical Engineering">Electrical Engineering (EE)</option>
+            <option value="Electronics & Communication Engineering">Electronics &amp; Communication (ECE)</option>
+            <option value="Chemical Engineering">Chemical Engineering (CH)</option>
+            <option value="Instrumentation Engineering">Instrumentation Engineering (IN)</option>
+            <option value="Biotechnology">Biotechnology (BT)</option>
+            <option value="Engineering Sciences">Engineering Sciences (XE)</option>
+            <option value="Data Science &amp; Artificial Intelligence">Data Science &amp; AI (DA)</option>
+          </select>
+        </div>
+
+        <div class="config-group">
+          <label for="gateDiffSelect">Difficulty:</label>
+          <select id="gateDiffSelect" class="config-select">
+            <option value="Easy">Easy Level</option>
+            <option value="Medium" selected>Medium (Standard GATE)</option>
+            <option value="Hard">Hard (Rank Booster)</option>
+          </select>
+        </div>
+
+        <div class="config-group">
+          <label for="gateCountSelect">Questions:</label>
+          <select id="gateCountSelect" class="config-select">
+            <option value="5">5 Questions (Speed)</option>
+            <option value="10" selected>10 Questions (Standard)</option>
+            <option value="15">15 Questions (Full Set)</option>
+          </select>
+        </div>
+
+        <div class="config-group">
+          <label for="gateTimerSelect">Timer:</label>
+          <select id="gateTimerSelect" class="config-select">
+            <option value="10" selected>10 Minutes</option>
+            <option value="15">15 Minutes</option>
+            <option value="20">20 Minutes</option>
+            <option value="0">No Timer (Practice)</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="startSelectedGateBtn" class="btn-gate-start" onclick="startSelectedSubject()">
+        Start GATE Quiz →
+      </button>
+    </div>
+
+    <!-- Subjects Grid -->
+    <div class="gate-grid" id="gateSubjectsGrid">
+      <!-- 1. Data Structures -->
+      <div class="gate-card selected" data-subject="Data Structures" onclick="selectSubjectCard(this, 'Data Structures')">
+        <div>
+          <div class="gate-card-icon">🌲</div>
+          <h3>Data Structures</h3>
+          <p>Trees, AVL, B/B+ trees, Heaps, Hashing, Graph representations, and asymptotic space bounds.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Red-Black Trees</span>
+            <span class="gate-tag">Min-Heaps</span>
+            <span class="gate-tag">Hashing</span>
+            <span class="gate-tag">BSTs</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>Selected ✓</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 2. Algorithms -->
+      <div class="gate-card" data-subject="Algorithms" onclick="selectSubjectCard(this, 'Algorithms')">
+        <div>
+          <div class="gate-card-icon">⚡</div>
+          <h3>Algorithms</h3>
+          <p>Divide & conquer, Master Theorem, Greedy, Dynamic Programming, Graph shortest paths, NP-Completeness.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Bellman-Ford</span>
+            <span class="gate-tag">Floyd-Warshall</span>
+            <span class="gate-tag">Master Theorem</span>
+            <span class="gate-tag">Knapsack</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 3. DBMS -->
+      <div class="gate-card" data-subject="DBMS" onclick="selectSubjectCard(this, 'DBMS')">
+        <div>
+          <div class="gate-card-icon">🗄️</div>
+          <h3>DBMS</h3>
+          <p>Relational Algebra, SQL queries, Normalization (3NF/BCNF), Concurrency control, Strict 2PL, B+ trees.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Candidate Keys</span>
+            <span class="gate-tag">Lossless Join</span>
+            <span class="gate-tag">Serializability</span>
+            <span class="gate-tag">ACID</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 4. Operating Systems -->
+      <div class="gate-card" data-subject="Operating Systems" onclick="selectSubjectCard(this, 'Operating Systems')">
+        <div>
+          <div class="gate-card-icon">⚙️</div>
+          <h3>Operating Systems</h3>
+          <p>CPU Scheduling, Semaphores, Deadlock Banker's algorithm, Paging, Virtual Memory, Belady's anomaly.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Banker's Alg</span>
+            <span class="gate-tag">Paging Math</span>
+            <span class="gate-tag">Page Faults</span>
+            <span class="gate-tag">Semaphores</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 5. Computer Networks -->
+      <div class="gate-card" data-subject="Computer Networks" onclick="selectSubjectCard(this, 'Computer Networks')">
+        <div>
+          <div class="gate-card-icon">🌐</div>
+          <h3>Computer Networks</h3>
+          <p>OSI & TCP/IP stack, IPv4 CIDR subnetting, Sliding Window, TCP congestion control, Distance Vector, ARP.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">TCP Flow Control</span>
+            <span class="gate-tag">CIDR / Subnets</span>
+            <span class="gate-tag">Nyquist</span>
+            <span class="gate-tag">Routing</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 6. Computer Organization & Architecture -->
+      <div class="gate-card" data-subject="Computer Organization and Architecture" onclick="selectSubjectCard(this, 'Computer Organization and Architecture')">
+        <div>
+          <div class="gate-card-icon">💻</div>
+          <h3>Computer Organization</h3>
+          <p>Instruction pipelining hazards, cache mapping, speedup calculations, IEEE 754 floating point format, Booth's algorithm.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Pipeline Hazards</span>
+            <span class="gate-tag">Cache Tag Bits</span>
+            <span class="gate-tag">IEEE 754</span>
+            <span class="gate-tag">Speedup</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 7. Theory of Computation -->
+      <div class="gate-card" data-subject="Theory of Computation" onclick="selectSubjectCard(this, 'Theory of Computation')">
+        <div>
+          <div class="gate-card-icon">📐</div>
+          <h3>Theory of Computation</h3>
+          <p>Regular expressions, DFA state minimization, Context-Free Grammars, Pushdown Automata, Turing decidability, Halting problem.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Pumping Lemma</span>
+            <span class="gate-tag">PDA & DCFL</span>
+            <span class="gate-tag">Undecidability</span>
+            <span class="gate-tag">Chomsky</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 8. Compiler Design -->
+      <div class="gate-card" data-subject="Compiler Design" onclick="selectSubjectCard(this, 'Compiler Design')">
+        <div>
+          <div class="gate-card-icon">🔍</div>
+          <h3>Compiler Design</h3>
+          <p>Lexical analysis, LL(1), SLR(1), LALR(1), CLR(1) parsing tables, Syntax-Directed Translation, Three-Address Code, Optimization.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">LR Parsing</span>
+            <span class="gate-tag">S-Attributed</span>
+            <span class="gate-tag">Graph Coloring</span>
+            <span class="gate-tag">Optimization</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+
+      <!-- 9. Engineering Mathematics -->
+      <div class="gate-card" data-subject="Engineering Mathematics" onclick="selectSubjectCard(this, 'Engineering Mathematics')">
+        <div>
+          <div class="gate-card-icon">🔢</div>
+          <h3>Engineering Mathematics</h3>
+          <p>Linear Algebra, Eigenvalues, Rank, Determinants, Calculus, Limits, Probability distributions, Bayes' theorem, Graph theory.</p>
+          <div class="gate-subtopics">
+            <span class="gate-tag">Eigenvalues</span>
+            <span class="gate-tag">Bayes Theorem</span>
+            <span class="gate-tag">Euler Formula</span>
+            <span class="gate-tag">Matrix Rank</span>
+          </div>
+        </div>
+        <div class="gate-card-footer">
+          <span>10 MCQs</span>
+          <span>Launch →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ACTIVE GATE QUIZ SESSION (Centered like other QuizGenius quizzes) -->
+  <div id="gateActiveSession" class="quiz-wrapper" style="display: none;">
+    <!-- Loading State Screen -->
+    <div id="gateLoadingView" class="quiz-card loading-screen" style="display: none;">
+      <div class="spinner"></div>
+      <h3 id="loadingTitle">Preparing your GATE Exam Questions...</h3>
+      <p id="loadingSubtitle">Querying previous question history and generating unique MCQs.</p>
+    </div>
+
+    <!-- Active GATE Quiz Card -->
+    <div id="gateQuizCard" class="quiz-card" style="display: none;">
+      <div class="quiz-header-bar">
+        <div class="quiz-meta-left">
+          <span id="quizSubjectBadge" class="quiz-subject-badge">Data Structures</span>
+          <span id="quizDiffBadge" class="quiz-diff-badge">Medium</span>
+        </div>
+
+        <div class="quiz-timer-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="timerDisplay">10:00</span>
+        </div>
+      </div>
+
+      <!-- Progress Track -->
+      <div class="progress-container">
+        <div class="progress-meta">
+          <span id="questionCounter">Question 1 of 10</span>
+          <span id="progressPercent">10%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progressBarFill" class="progress-bar-fill" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <!-- Question Box -->
+      <div class="question-box">
+        <span id="topicTag" class="topic-tag">GATE CSE</span>
+        <h2 id="questionText" class="question-text">Question content goes here?</h2>
+      </div>
+
+      <!-- Options List -->
+      <div id="optionsList" class="options-list">
+        <!-- Options injected by gate.js -->
+      </div>
+
+      <!-- Instant Step-by-Step Explanation -->
+      <div id="explanationBox" class="explanation-box" style="display: none;">
+        <div class="explanation-title">💡 Detailed GATE Concept &amp; Solution:</div>
+        <p id="explanationText" class="explanation-text"></p>
+      </div>
+
+      <!-- Footer Actions (Identical to other QuizGenius quizzes) -->
+      <div class="quiz-footer">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <button id="prevBtn" class="btn-prev" disabled type="button">← Previous</button>
+          <span id="feedbackNotice" style="font-size: 13.5px; font-weight: 600;"></span>
+        </div>
+        <button id="nextBtn" class="btn-next" type="button">Next Question →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. RESULTS & PERFORMANCE ANALYSIS VIEW -->
+  <div id="gateResultView" style="display: none; margin-top: 24px;">
+    <!-- Rendered dynamically by gate.js -->
+  </div>
+</main>
+
+<!-- Exit Confirmation Modal Dialog (Identical to other QuizGenius quizzes) -->
+<div id="exitConfirmModal" class="exit-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="exitModalHeading">
+  <div class="exit-modal-card">
+    <h3 id="exitModalHeading">Are you sure you want to exit the GATE quiz?</h3>
+    <p>Your current progress will be lost.</p>
+    <div class="exit-modal-actions">
+      <button id="cancelExitBtn" class="btn-modal-cancel" type="button">Cancel</button>
+      <button id="confirmExitBtn" class="btn-modal-exit" type="button">Exit Quiz</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/gate.js"></script>
+</body>
+</html>
