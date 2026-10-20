@@ -10,12 +10,11 @@ import {
   analyzePerformance
 } from "./functions/ai-service";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   app.use(express.json());
 
@@ -161,9 +160,9 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`QuizGenius Server running on http://0.0.0.0:${PORT}`);
-  });
+ app.listen(PORT, "0.0.0.0", () => {
+  console.log(`QuizGenius server running on port ${PORT}`);
+});
 }
 
 startServer();
