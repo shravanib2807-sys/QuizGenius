@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aptitude Tests — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/aptitude.css" />
+<link rel="stylesheet" href="css/quiz.css" />
+<link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gate.html">GATE Quiz</a>
+      <a href="language.html">Quizzes</a>
+      <a href="aptitude.html" class="active">Aptitude</a>
+      <a href="profile.html">Profile</a>
+      <a href="upgrade.html">Upgrade</a>
+    </div>
+
+    <div>
+      <a href="dashboard.html" style="font-size: 14px; font-weight: 600; color: var(--purple-deep);">← Back to Dashboard</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <!-- Selection View -->
+  <div id="aptitudeSelectionView">
+    <div class="apt-intro">
+      <span class="eyebrow">🎯 Campus Placement & GATE Preparation</span>
+      <h1>Comprehensive Aptitude Platform</h1>
+      <p>Sharpen quantitative speed, logical deductions, and verbal comprehension with timed interactive questions.</p>
+    </div>
+
+    <!-- Section Tabs -->
+    <div class="apt-tabs">
+      <button class="apt-tab-btn active" data-section="All">All Sections</button>
+      <button class="apt-tab-btn" data-section="Quantitative Aptitude">Quantitative Aptitude</button>
+      <button class="apt-tab-btn" data-section="Logical Reasoning">Logical Reasoning</button>
+      <button class="apt-tab-btn" data-section="Verbal Ability">Verbal Ability</button>
+    </div>
+
+    <!-- Category Grid -->
+    <div class="cat-grid">
+      <!-- 1. Quantitative Aptitude -->
+      <div class="cat-card quant" data-cat="Quantitative Aptitude">
+        <div>
+          <div class="cat-icon">📐</div>
+          <h3>Quantitative Aptitude</h3>
+          <p>Numerical calculations, arithmetic word problems, formulas, and data interpretation techniques.</p>
+          <div class="topic-pills">
+            <span class="topic-pill">Percentage</span>
+            <span class="topic-pill">Profit & Loss</span>
+            <span class="topic-pill">Ratio & Proportion</span>
+            <span class="topic-pill">Time & Work</span>
+            <span class="topic-pill">Speed & Distance</span>
+            <span class="topic-pill">Number System</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="cat-controls">
+            <select id="quantDiff">
+              <option value="Easy">Easy Level</option>
+              <option value="Medium" selected>Medium Level</option>
+              <option value="Hard">Hard Level</option>
+            </select>
+          </div>
+          <button class="btn-cat-start" onclick="startAptitude('Quantitative Aptitude', 'quantDiff')">
+            Start Quantitative Test →
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Logical Reasoning -->
+      <div class="cat-card logical" data-cat="Logical Reasoning">
+        <div>
+          <div class="cat-icon">🧩</div>
+          <h3>Logical Reasoning</h3>
+          <p>Pattern recognition, spatial relations, blood relations, deductive syllogisms, and series identification.</p>
+          <div class="topic-pills">
+            <span class="topic-pill">Number Series</span>
+            <span class="topic-pill">Coding-Decoding</span>
+            <span class="topic-pill">Blood Relations</span>
+            <span class="topic-pill">Direction Sense</span>
+            <span class="topic-pill">Syllogism</span>
+            <span class="topic-pill">Analogy</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="cat-controls">
+            <select id="logicalDiff">
+              <option value="Easy">Easy Level</option>
+              <option value="Medium" selected>Medium Level</option>
+              <option value="Hard">Hard Level</option>
+            </select>
+          </div>
+          <button class="btn-cat-start" style="background: linear-gradient(100deg, var(--purple-deep), var(--purple));" onclick="startAptitude('Logical Reasoning', 'logicalDiff')">
+            Start Reasoning Test →
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Verbal Ability -->
+      <div class="cat-card verbal" data-cat="Verbal Ability">
+        <div>
+          <div class="cat-icon">📖</div>
+          <h3>Verbal Ability</h3>
+          <p>English grammar rules, vocabulary precision, contextual sentence correction, and critical reading skills.</p>
+          <div class="topic-pills">
+            <span class="topic-pill">Grammar</span>
+            <span class="topic-pill">Vocabulary</span>
+            <span class="topic-pill">Synonyms & Antonyms</span>
+            <span class="topic-pill">Sentence Correction</span>
+            <span class="topic-pill">Reading Comprehension</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="cat-controls">
+            <select id="verbalDiff">
+              <option value="Easy">Easy Level</option>
+              <option value="Medium" selected>Medium Level</option>
+              <option value="Hard">Hard Level</option>
+            </select>
+          </div>
+          <button class="btn-cat-start" style="background: linear-gradient(100deg, var(--blue), var(--purple-deep));" onclick="startAptitude('Verbal Ability', 'verbalDiff')">
+            Start Verbal Test →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Aptitude Test Session View (Shown when test is active) -->
+  <div id="aptitudeTestSession" style="display: none; padding: 40px 0;">
+    <div id="aptLoading" class="quiz-card loading-screen">
+      <div class="spinner"></div>
+      <h3>AI is preparing your aptitude questions...</h3>
+      <p>Assembling quantitative and analytical problems with complete solutions.</p>
+    </div>
+
+    <div id="aptActiveCard" class="quiz-card" style="display: none;">
+      <div class="quiz-header-bar">
+        <div class="quiz-meta-left">
+          <span id="aptSectionBadge" class="quiz-subject-badge">Quantitative</span>
+          <span id="aptDiffBadge" class="quiz-diff-badge">Medium</span>
+        </div>
+
+        <div class="quiz-timer-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="aptTimer">00:00</span>
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-meta">
+          <span id="aptCounter">Question 1 of 10</span>
+          <span id="aptPercent">10%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="aptBarFill" class="progress-bar-fill" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <div class="question-box">
+        <span id="aptTopicTag" class="topic-tag">Topic</span>
+        <h2 id="aptQuestionText" class="question-text">Question goes here?</h2>
+      </div>
+
+      <div id="aptOptionsList" class="options-list"></div>
+
+      <div id="aptExplanationBox" class="explanation-box" style="display: none;">
+        <div class="explanation-title">💡 Step-by-Step Solution:</div>
+        <p id="aptExplanationText" class="explanation-text"></p>
+      </div>
+
+      <div class="quiz-footer">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <button id="aptPrevBtn" class="btn-prev" disabled type="button">← Previous</button>
+          <span id="aptFeedbackNotice" style="font-size: 13.5px; font-weight: 600;"></span>
+        </div>
+        <button id="aptNextBtn" class="btn-next" type="button">Next Question →</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/aptitude.js"></script>
+</body>
+</html>

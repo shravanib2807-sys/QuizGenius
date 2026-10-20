@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Profile — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/profile.css" />
+<link rel="stylesheet" href="css/dashboard.css" />
+<link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="gate.html">GATE Quiz</a>
+      <a href="language.html">Quizzes</a>
+      <a href="aptitude.html">Aptitude</a>
+      <a href="profile.html" class="active">Profile</a>
+      <a href="upgrade.html">Upgrade</a>
+    </div>
+
+    <div>
+      <a href="dashboard.html" style="font-size: 14px; font-weight: 600; color: var(--purple-deep);">← Back to Dashboard</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap profile-content">
+  <!-- Subscription & Trial Card -->
+  <div class="profile-card" style="margin-bottom: 24px; border-left: 5px solid var(--purple-deep);">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <span style="font-size: 24px;">⭐</span>
+          <h2 style="font-size: 20px; margin: 0; color: var(--ink);">Membership &amp; Trial Status</h2>
+          <span id="subStatusBadge" style="padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: #e0e7ff; color: #4338ca;">Trial</span>
+        </div>
+        <p id="subStatusDescription" style="font-size: 14px; color: var(--ink-soft); margin: 0;">
+          Checking your 15-day trial period...
+        </p>
+      </div>
+
+      <div>
+        <a href="upgrade.html" id="subUpgradeBtn" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--purple-deep), var(--blue)); color: white; padding: 10px 20px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; text-decoration: none; box-shadow: 0 8px 18px -6px rgba(108,63,224,0.4);">
+          Upgrade Plan →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Header Card -->
+  <div class="profile-card">
+    <div class="profile-header-row">
+      <div id="avatarLetter" class="avatar-circle">S</div>
+      <div class="profile-title-col">
+        <h1 id="profileNameHeading">Student Profile</h1>
+        <p id="profileEmailSubtitle">student@engineering.edu</p>
+        <span style="display: inline-block; font-size: 12px; color: var(--ink-soft); margin-top: 6px;">
+          Registered on: <strong id="registeredDateText">September 2026</strong>
+        </span>
+      </div>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <form id="profileForm">
+      <div id="profileMessage" style="display:none; padding:12px 16px; border-radius:8px; margin-bottom:20px; font-size:14px;"></div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="profName">Full Name</label>
+          <input type="text" id="profName" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label for="profEmail">Email Address (Read-only)</label>
+          <input type="email" id="profEmail" class="form-control" disabled />
+        </div>
+
+        <div class="form-group full">
+          <label for="profBranch">Engineering Branch</label>
+          <select id="profBranch" class="form-control" required>
+            <option value="Computer Science Engineering">Computer Science Engineering</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Artificial Intelligence & Machine Learning">Artificial Intelligence & Machine Learning</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Chemical Engineering">Chemical Engineering</option>
+            <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
+            <option value="Electrical Engineering">Electrical Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Security Notice -->
+      <div class="notice-box">
+        <span>🔒</span>
+        <span><strong>Security Notice:</strong> Student passwords are managed through secure Firebase Authentication credentials and are never exposed or directly editable via Firestore collections.</span>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="saveProfBtn" class="btn-save">Save Profile Changes</button>
+        <button type="button" id="profLogoutBtn" class="btn-logout-big">Log Out Account</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Performance Summary -->
+  <div class="history-card">
+    <h2>Academic & Assessment Metrics</h2>
+    
+    <div class="stats-grid" style="margin-bottom: 0;">
+      <div class="stat-box">
+        <span class="label">Completed Quizzes</span>
+        <span id="profQuizCount" class="val">0</span>
+        <span class="subtext">Technical evaluations</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="label">Completed Aptitude</span>
+        <span id="profAptCount" class="val">0</span>
+        <span class="subtext">Reasoning challenges</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="label">Average Accuracy</span>
+        <span id="profAvgScore" class="val">0%</span>
+        <span class="subtext">Overall tests</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="label">Highest Score</span>
+        <span id="profHighScore" class="val">0%</span>
+        <span class="subtext">Top test mark</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="js/profile.js"></script>
+</body>
+</html>

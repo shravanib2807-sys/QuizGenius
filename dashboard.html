@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Dashboard — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/dashboard.css" />
+<link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div class="nav-links">
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="gate.html">GATE Quiz</a>
+      <a href="language.html">Quizzes</a>
+      <a href="aptitude.html">Aptitude</a>
+      <a href="profile.html">Profile</a>
+      <a href="upgrade.html" style="color: var(--purple-deep); font-weight: 700;">Upgrade</a>
+    </div>
+
+    <div class="nav-user">
+      <a href="upgrade.html" id="trialStatusChip" class="nav-badge" style="background: #e0e7ff; color: #4338ca; text-decoration: none; font-weight: 700;">
+        15-Day Free Trial
+      </a>
+      <span id="navStudentName" class="nav-badge">Student</span>
+      <button id="logoutBtn" class="btn-logout">Logout</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <!-- Top Welcome Banner -->
+  <section class="dash-banner">
+    <div class="banner-card">
+      <div class="banner-content">
+        <div>
+          <span class="banner-badge">
+            <span class="dot"></span>
+            AI-Powered Engineering Platform
+          </span>
+          <h1 id="welcomeGreeting">Welcome, Student</h1>
+          <p id="learningRecommendation">Personalized recommendations tailored to your engineering discipline.</p>
+          <div style="margin-top: 18px;">
+            <a id="dailyQuizBannerBtn" href="quiz.html?subject=Python&diff=Medium&daily=true" style="display: inline-flex; align-items: center; gap: 8px; background: #ffffff; color: var(--purple-deep); font-weight: 700; font-size: 13.5px; padding: 10px 20px; border-radius: 999px; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,0.18);">
+              <span>📅</span> Take Today's Daily Quiz →
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="branch-pill">
+            <span>Branch:</span>
+            <strong id="studentBranchDisplay">Computer Science Engineering</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Action Cards (Technical, Aptitude, and GATE) -->
+  <section class="dash-actions">
+    <div class="action-card tech">
+      <div>
+        <div class="action-icon">💻</div>
+        <h3>Technical Quiz</h3>
+        <p>Practice programming languages, data structures, algorithms, and core engineering subjects tailored to your branch.</p>
+      </div>
+      <a href="language.html" class="btn-action blue">Start Technical Quiz →</a>
+    </div>
+
+    <div class="action-card aptitude">
+      <div>
+        <div class="action-icon">🎯</div>
+        <h3>Aptitude Test</h3>
+        <p>Prepare for campus recruitment with quantitative aptitude, logical reasoning, and verbal ability tests with step-by-step solutions.</p>
+      </div>
+      <a href="aptitude.html" class="btn-action teal">Start Aptitude Test →</a>
+    </div>
+
+    <div class="action-card gate">
+      <div>
+        <div class="action-icon">🎓</div>
+        <h3>GATE Exam Quiz</h3>
+        <p>Master GATE CSE core subjects: Data Structures, Algorithms, DBMS, OS, Networks, COA, TOC, Compiler, &amp; Math.</p>
+      </div>
+      <a href="gate.html" class="btn-action purple">Start GATE Quiz →</a>
+    </div>
+  </section>
+
+  <!-- Branch Recommended Subjects / Languages -->
+  <section>
+    <div class="section-title-row">
+      <div>
+        <h2>Recommended Languages & Core Subjects</h2>
+        <p>AI curriculum curated for <span id="subBranchLabel">your branch</span></p>
+      </div>
+      <a href="language.html" style="color: var(--purple-deep); font-size: 14px; font-weight: 700;">Browse all subjects →</a>
+    </div>
+
+    <div id="recommendedContainer" class="languages-scroll">
+      <!-- Injected via dashboard.js -->
+    </div>
+  </section>
+
+  <!-- Progress Tracking Section -->
+  <section>
+    <div class="section-title-row">
+      <div>
+        <h2>Your Learning Progress</h2>
+        <p>Overall accuracy and test performance history</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="label">Quizzes Attempted</span>
+        <span id="statQuizCount" class="val">0</span>
+        <span class="subtext">Technical challenges</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="label">Aptitude Tests Attempted</span>
+        <span id="statAptCount" class="val">0</span>
+        <span class="subtext">Reasoning & quant sets</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="label">Average Score</span>
+        <span id="statAvgScore" class="val">0%</span>
+        <span class="subtext">Across all completed tests</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="label">Best Score</span>
+        <span id="statBestScore" class="val">0%</span>
+        <span class="subtext">Personal high score</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Activity -->
+  <section>
+    <div class="recent-activity-card">
+      <div class="section-title-row" style="margin-bottom: 0;">
+        <h2>Recent Activity</h2>
+      </div>
+
+      <div id="recentActivityList">
+        <table class="activity-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Subject / Category</th>
+              <th>Score</th>
+              <th>Percentage</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="activityTableBody">
+            <!-- Rows injected by dashboard.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

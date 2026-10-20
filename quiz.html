@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Technical Quiz — QuizGenius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/quiz.css" />
+<link rel="stylesheet" href="css/global.css" />
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="dashboard.html" class="brand">
+      <span class="mark">Q</span>QuizGenius
+    </a>
+
+    <div>
+      <button id="exitQuizBtn" class="exit-btn">✕ Exit Quiz</button>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap quiz-wrapper">
+  <!-- Loading State Screen -->
+  <div id="loadingScreen" class="quiz-card loading-screen">
+    <div class="spinner"></div>
+    <h3 id="loadingTitle">AI is preparing your questions...</h3>
+    <p id="loadingSubtitle">Generating custom engineering questions based on technical concepts.</p>
+  </div>
+
+  <!-- Active Quiz Card -->
+  <div id="quizCard" class="quiz-card" style="display: none;">
+    <!-- Meta Header -->
+    <div class="quiz-header-bar">
+      <div class="quiz-meta-left">
+        <span id="quizSubjectBadge" class="quiz-subject-badge">Data Structures</span>
+        <span id="quizDiffBadge" class="quiz-diff-badge">Medium</span>
+      </div>
+
+      <div class="quiz-timer-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span id="timerDisplay">00:00</span>
+      </div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="progress-container">
+      <div class="progress-meta">
+        <span id="questionCounter">Question 1 of 10</span>
+        <span id="progressPercent">10%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="progressBarFill" class="progress-bar-fill" style="width: 10%;"></div>
+      </div>
+    </div>
+
+    <!-- Question Box -->
+    <div class="question-box">
+      <span id="topicTag" class="topic-tag">Topic</span>
+      <h2 id="questionText" class="question-text">Question content goes here?</h2>
+    </div>
+
+    <!-- Options List -->
+    <div id="optionsList" class="options-list">
+      <!-- Options injected by quiz.js -->
+    </div>
+
+    <!-- Instant Explanation -->
+    <div id="explanationBox" class="explanation-box" style="display: none;">
+      <div class="explanation-title">💡 Explanation:</div>
+      <p id="explanationText" class="explanation-text"></p>
+    </div>
+
+    <!-- Footer Action -->
+    <div class="quiz-footer">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button id="prevBtn" class="btn-prev" disabled type="button">← Previous</button>
+        <span id="feedbackNotice" style="font-size: 13.5px; font-weight: 600;"></span>
+      </div>
+      <button id="nextBtn" class="btn-next" type="button">Next Question →</button>
+    </div>
+  </div>
+</main>
+
+<!-- Exit Confirmation Modal Dialog -->
+<div id="exitConfirmModal" class="exit-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="exitModalHeading">
+  <div class="exit-modal-card">
+    <h3 id="exitModalHeading">Are you sure you want to exit the quiz?</h3>
+    <p>Your current progress will be lost.</p>
+    <div class="exit-modal-actions">
+      <button id="cancelExitBtn" class="btn-modal-cancel" type="button">Cancel</button>
+      <button id="confirmExitBtn" class="btn-modal-exit" type="button">Exit Quiz</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/quiz.js"></script>
+</body>
+</html>
