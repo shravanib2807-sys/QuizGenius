@@ -18,6 +18,9 @@ export default defineConfig(() => {
           aptitude: path.resolve(process.cwd(), 'aptitude.html'),
           result: path.resolve(process.cwd(), 'result.html'),
           profile: path.resolve(process.cwd(), 'profile.html'),
+          gate: path.resolve(process.cwd(), 'gate.html'),
+          upgrade: path.resolve(process.cwd(), 'upgrade.html'),
+          
         },
       },
     },
